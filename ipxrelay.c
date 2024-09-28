@@ -320,7 +320,7 @@ static int ipx_relay_server(int fd)
 	hlen = ntohs(pkt.hdr.length);
 	if (hlen < 30 || hlen > len)
 	    continue;
-
+#if 0
 	/* No routers, it's all network zero */
 	if (pkt.hdr.dst_addr.network | pkt.hdr.src_addr.network)
 	    continue;
@@ -328,7 +328,7 @@ static int ipx_relay_server(int fd)
 	/* Reject routed packets */
 	if (pkt.hdr.transcontrol)
 	    continue;
-
+#endif
 	if (is_ipx_null(&pkt.hdr.dst_addr)) {
 	    /* Sent to the null address: registration packet */
 	    register_client(fd, &pkt.hdr, &from, now);
